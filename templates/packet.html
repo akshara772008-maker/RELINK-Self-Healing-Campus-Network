@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Packet Simulation
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        <span class="logo-mark">R</span>
+        <span class="logo-text">RELINK</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/simulation">
+            Simulation
+        </a>
+
+        <a href="/recovery">
+            Recovery
+        </a>
+
+        <a href="/packet" class="active">
+            Packets
+        </a>
+
+        <a href="/results">
+            Results
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="page-container">
+
+
+    <div class="page-title">
+
+        <div>
+
+            <span class="eyebrow">
+                PACKET SIMULATOR
+            </span>
+
+            <h1>
+                Packet Transmission
+            </h1>
+
+            <p>
+                Simulate TCP and UDP packet transmission across the campus network.
+            </p>
+
+        </div>
+
+
+        <button
+            class="secondary-button packet-reset-button"
+            onclick="resetNetwork()"
+        >
+            RESET NETWORK
+        </button>
+
+    </div>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <span class="eyebrow">
+                    TRANSMISSION CONTROL
+                </span>
+
+                <h2>
+                    Create Packet
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+
+            <div class="form-group">
+
+                <label for="packetSource">
+                    SOURCE DEVICE
+                </label>
+
+                <select id="packetSource">
+
+                    <option value="">
+                        Select source
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="packetDestination">
+                    DESTINATION DEVICE
+                </label>
+
+                <select id="packetDestination">
+
+                    <option value="">
+                        Select destination
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="packetProtocol">
+                    PROTOCOL
+                </label>
+
+                <select id="packetProtocol">
+
+                    <option value="TCP">
+                        TCP
+                    </option>
+
+                    <option value="UDP">
+                        UDP
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="packetMessage">
+                    MESSAGE
+                </label>
+
+                <input
+                    type="text"
+                    id="packetMessage"
+                    placeholder="Enter packet message"
+                >
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-button"
+            onclick="sendPacket()"
+        >
+            SEND PACKET
+        </button>
+
+    </section>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <span class="eyebrow">
+                    PACKET STATUS
+                </span>
+
+                <h2>
+                    Transmission Result
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="packetResult">
+
+            <div class="empty-state">
+
+                <p>
+                    No packet has been transmitted yet.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <span class="eyebrow">
+                    LIVE EVENT LOG
+                </span>
+
+                <h2>
+                    Packet Activity
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="packetLogs"
+            class="packet-logs"
+        >
+
+            <div class="empty-state">
+
+                <p>
+                    Packet events will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script
+    src="{{ url_for('static', filename='js/packet.js') }}"
+></script>
+
+</body>
+
+</html>

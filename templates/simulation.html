@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Network Simulation</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <script src="https://unpkg.com/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        <span class="logo-mark">R</span>
+        <span class="logo-text">RELINK</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/simulation" class="active">
+            Simulation
+        </a>
+
+        <a href="/recovery">
+            Recovery
+        </a>
+
+        <a href="/packet">
+            Packets
+        </a>
+
+        <a href="/results">
+            Results
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="page-container">
+
+    <div class="page-title">
+
+        <div>
+
+            <span class="eyebrow">
+                LIVE SIMULATION
+            </span>
+
+            <h1>
+                Campus Network Topology
+            </h1>
+
+            <p>
+                Interact with the actual Python network model.
+            </p>
+
+        </div>
+
+
+        <div
+            id="networkStatus"
+            class="status-badge normal"
+        >
+            ● NETWORK NORMAL
+        </div>
+
+    </div>
+
+
+    <div class="simulation-layout">
+
+
+        <!-- TOPOLOGY -->
+
+        <section class="topology-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Interactive Topology
+                    </h2>
+
+                    <p>
+                        22 devices • 29 links
+                    </p>
+
+                </div>
+
+
+                <div class="legend">
+
+                    <span>
+                        <i class="router-dot"></i>
+                        Router
+                    </span>
+
+                    <span>
+                        <i class="switch-dot"></i>
+                        Switch
+                    </span>
+
+                    <span>
+                        <i class="host-dot"></i>
+                        Host
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="network-wrapper">
+
+    <div class="cost-legend">
+
+        <div class="legend-title">
+            LINK COST
+        </div>
+
+        <div class="legend-item">
+            <span class="cost-dot cost-1"></span>
+            COST 1
+        </div>
+
+        <div class="legend-item">
+            <span class="cost-dot cost-2"></span>
+            COST 2
+        </div>
+
+        <div class="legend-item">
+            <span class="cost-dot cost-3"></span>
+            COST 3
+        </div>
+
+        <div class="legend-item">
+            <span class="cost-dot cost-4"></span>
+            COST 4
+        </div>
+
+        <div class="legend-divider"></div>
+
+        <div class="legend-route">
+            ROUTE
+        </div>
+
+        <div class="legend-note">
+            Selected route glows
+        </div>
+
+    </div>
+
+    <div id="networkGraph"></div>
+
+</div>
+
+        </section>
+
+
+        <!-- CONTROLS -->
+
+        <aside class="control-panel">
+
+
+            <!-- FAILURE -->
+
+            <div class="control-section">
+
+                <h3>
+                    Failure Simulation
+                </h3>
+
+                <p>
+                    Intentionally introduce a network failure.
+                </p>
+
+
+                <label>
+                    Failure Type
+                </label>
+
+                <select id="failureType">
+
+                    <option value="device">
+                        Device Failure
+                    </option>
+
+                    <option value="link">
+                        Link Failure
+                    </option>
+
+                </select>
+
+
+                <div id="deviceFailureControls">
+
+                    <label>
+                        Device
+                    </label>
+
+                    <select id="failureDevice">
+
+                        <option value="">
+                            Select device
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="danger-button"
+                        onclick="failSelectedDevice()"
+                    >
+                        FAIL DEVICE
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="linkFailureControls"
+                    style="display:none;"
+                >
+
+                    <label>
+                        Link Source
+                    </label>
+
+                    <select id="failureLinkSource">
+
+                        <option value="">
+                            Select source
+                        </option>
+
+                    </select>
+
+
+                    <label>
+                        Link Destination
+                    </label>
+
+                    <select id="failureLinkDestination">
+
+                        <option value="">
+                            Select destination
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="danger-button"
+                        onclick="failSelectedLink()"
+                    >
+                        FAIL LINK
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ROUTING -->
+
+            <div class="control-section">
+
+                <h3>
+                    Routing
+                </h3>
+
+
+                <label>
+                    Source
+                </label>
+
+                <select id="routeSource">
+
+                    <option value="">
+                        Select source
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Destination
+                </label>
+
+                <select id="routeDestination">
+
+                    <option value="">
+                        Select destination
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Algorithm
+                </label>
+
+                <select id="routeAlgorithm">
+
+                    <option value="link_state">
+                        Link State — Dijkstra
+                    </option>
+
+                    <option value="distance_vector">
+                        Distance Vector — Bellman-Ford
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="primary-button"
+                    onclick="calculateRoute()"
+                >
+                    CALCULATE ROUTE
+                </button>
+
+            </div>
+
+
+            <!-- RESET -->
+
+            <div class="control-section">
+
+                <button
+                    class="secondary-button"
+                    onclick="resetNetwork()"
+                >
+                    RESET NETWORK
+                </button>
+
+                <p>
+                    Reset removes all failures and clears saved simulation selections.
+                </p>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="control-section">
+
+                <h3>
+                    Network Statistics
+                </h3>
+
+
+                <div class="stat-row">
+
+                    <span>
+                        Nodes
+                    </span>
+
+                    <strong id="nodeCount">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-row">
+
+                    <span>
+                        Links
+                    </span>
+
+                    <strong id="linkCount">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-row">
+
+                    <span>
+                        Failed
+                    </span>
+
+                    <strong
+                        id="failedCount"
+                        class="danger-text"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+
+    <!-- ROUTE -->
+
+    <section class="route-output">
+
+        <div class="card-header">
+
+            <h2>
+                Route Analysis
+            </h2>
+
+        </div>
+
+
+        <div id="routeResult">
+
+            Select source and destination
+            to calculate a route.
+
+        </div>
+
+    </section>
+
+
+    <!-- EVENTS -->
+
+    <section class="event-panel">
+
+        <div class="card-header">
+
+            <h2>
+                Live Event Log
+            </h2>
+
+        </div>
+
+
+        <div id="eventLog"></div>
+
+    </section>
+
+
+</main>
+
+
+<script
+    src="{{ url_for('static', filename='js/simulation.js') }}"
+></script>
+
+</body>
+
+</html>

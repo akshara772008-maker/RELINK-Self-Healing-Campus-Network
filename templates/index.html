@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        RELINK — Self-Healing Campus Network
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body class="home-page">
+
+
+<nav class="navbar">
+
+    <div class="logo">
+    <span class="logo-mark">R</span>
+    <span class="logo-text">RELINK</span>
+</div>
+
+
+    <div class="nav-links">
+
+        <a href="/" class="active">
+            Home
+        </a>
+
+        <a href="/simulation">
+            Simulation
+        </a>
+
+        <a href="/recovery">
+            Recovery
+        </a>
+
+        <a href="/packet">
+            Packets
+        </a>
+
+        <a href="/results">
+            Results
+        </a>
+
+    </div>
+
+</nav>
+
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+        <div class="badge">
+            COMPUTER NETWORKS PROJECT
+        </div>
+
+
+        <h1>
+            RELINK
+        </h1>
+
+
+        <h2 class="hero-subtitle">
+            Self-Healing Campus Network
+        </h2>
+
+
+        <p>
+            Detect failures. Reroute traffic.
+            Keep communication alive.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="/simulation"
+                class="btn primary"
+            >
+                START SIMULATION →
+            </a>
+
+
+            <a
+                href="#how"
+                class="btn secondary"
+            >
+                HOW IT WORKS
+            </a>
+
+        </div>
+
+    </div>
+
+<div class="hero-logo">
+
+    <div class="hero-logo-image">
+        <img
+            src="{{ url_for('static', filename='images/relink-logo.png') }}"
+            alt="RELINK circuit logo"
+        >
+    </div>
+
+    <div class="hero-logo-caption">
+        SELF-HEALING NETWORK
+    </div>
+
+</div>
+</section>
+
+
+<section
+    id="how"
+    class="how-section"
+>
+
+
+    <div class="section-heading">
+
+        <span>
+            HOW IT WORKS
+        </span>
+
+
+        <h2>
+            From failure to recovery
+        </h2>
+
+    </div>
+
+
+    <div class="process-grid">
+
+
+        <div class="process-card">
+
+            <div class="process-number">
+                01
+            </div>
+
+
+            <h3>
+                Detect
+            </h3>
+
+
+            <p>
+                The system continuously checks
+                devices and links for failures.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">
+                02
+            </div>
+
+
+            <h3>
+                Analyze
+            </h3>
+
+
+            <p>
+                The routing engine removes failed
+                components from the active network.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">
+                03
+            </div>
+
+
+            <h3>
+                Reroute
+            </h3>
+
+
+            <p>
+                Dijkstra or Bellman-Ford calculates
+                an alternate path.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">
+                04
+            </div>
+
+
+            <h3>
+                Recover
+            </h3>
+
+
+            <p>
+                Packets continue through the
+                recovered route.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    RELINK — Self-Healing Campus Network Simulator
+
+</footer>
+
+
+</body>
+
+</html>

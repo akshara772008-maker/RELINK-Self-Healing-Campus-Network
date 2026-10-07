@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Recovery Analysis
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        <span class="logo-mark">R</span>
+        <span class="logo-text">RELINK</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/simulation">
+            Simulation
+        </a>
+
+        <a href="/recovery" class="active">
+            Recovery
+        </a>
+
+        <a href="/packet">
+            Packets
+        </a>
+
+        <a href="/results">
+            Results
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="page-container">
+
+
+    <div class="page-title">
+
+        <div>
+
+            <span class="eyebrow">
+                RECOVERY ENGINE
+            </span>
+
+            <h1>
+                Recovery Analysis
+            </h1>
+
+            <p>
+                Analyze how the network responds to failure.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- RECOVERY SUMMARY -->
+    <!-- ========================= -->
+
+    <div
+        id="recoveryContent"
+        class="recovery-grid"
+    >
+
+        <div class="analysis-card">
+
+            <span>
+                FAILURE
+            </span>
+
+            <h2 id="failureComponent">
+                --
+            </h2>
+
+            <p id="failureStatus">
+                --
+            </p>
+
+        </div>
+
+
+        <div class="analysis-card">
+
+            <span>
+                ROUTING ALGORITHM
+            </span>
+
+            <h2 id="algorithm">
+                --
+            </h2>
+
+            <p>
+                Recovery calculation
+            </p>
+
+        </div>
+
+
+        <div class="analysis-card">
+
+            <span>
+                ROUTE COST
+            </span>
+
+            <h2 id="routeCost">
+                --
+            </h2>
+
+            <p>
+                Total recovery path cost
+            </p>
+
+        </div>
+
+
+        <div class="analysis-card">
+
+            <span>
+                RECOVERY STATUS
+            </span>
+
+            <h2
+                id="recoveryStatus"
+                class="success-text"
+            >
+                --
+            </h2>
+
+            <p>
+                Self-healing result
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ROUTE COMPARISON -->
+    <!-- ========================= -->
+
+    <section class="route-comparison">
+
+
+        <div class="route-box original">
+
+            <span>
+                ORIGINAL ROUTE
+            </span>
+
+            <div id="originalRoute">
+                --
+            </div>
+
+        </div>
+
+
+        <div class="route-arrow">
+            ↓
+        </div>
+
+
+        <div class="failure-marker">
+
+            FAILURE
+
+            <strong id="failedItem">
+                --
+            </strong>
+
+        </div>
+
+
+        <div class="route-arrow">
+            ↓
+        </div>
+
+
+        <div class="route-box recovery">
+
+            <span>
+                RECOVERY ROUTE
+            </span>
+
+            <div id="recoveryRoute">
+                --
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- NETWORK TOPOLOGY -->
+    <!-- ========================= -->
+
+    <section class="route-output">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    NETWORK STATE
+                </span>
+
+                <h2>
+                    Campus Network Topology
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="networkGraph"></div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- ROUTE ANALYSIS -->
+    <!-- ========================= -->
+
+    <section class="route-output">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    ROUTE ANALYSIS
+                </span>
+
+                <h2>
+                    Active Recovery Path
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="route-success">
+
+            <span>
+                SOURCE → DESTINATION
+            </span>
+
+            <strong id="analysisEndpoints">
+                --
+            </strong>
+
+
+            <span>
+                ALGORITHM
+            </span>
+
+            <strong id="analysisAlgorithm">
+                --
+            </strong>
+
+
+            <span>
+                RECOVERY COST
+            </span>
+
+            <strong id="analysisCost">
+                --
+            </strong>
+
+
+            <span>
+                PATH
+            </span>
+
+            <strong id="analysisPath">
+                --
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- LIVE EVENT LOG -->
+    <!-- ========================= -->
+
+    <section class="event-panel">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    SIMULATION EVENTS
+                </span>
+
+                <h2>
+                    Live Event Log
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="eventLog">
+
+            <div class="empty-state">
+                No simulation events recorded.
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.4/cytoscape.min.js"
+></script>
+
+
+<script
+    src="{{ url_for('static', filename='js/recovery.js') }}"
+></script>
+
+
+</body>
+
+</html>

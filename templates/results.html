@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Simulation Results
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        <span class="logo-mark">R</span>
+        <span class="logo-text">RELINK</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/simulation">
+            Simulation
+        </a>
+
+        <a href="/recovery">
+            Recovery
+        </a>
+
+        <a href="/packet">
+            Packets
+        </a>
+
+        <a href="/results" class="active">
+            Results
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="page-container">
+
+
+    <div class="page-title">
+
+        <div>
+
+            <span class="eyebrow">
+                SIMULATION HISTORY
+            </span>
+
+            <h1>
+                Event & Results
+            </h1>
+
+            <p>
+                Complete network simulation history.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <section
+        id="history"
+        class="history-list"
+    ></section>
+
+
+</main>
+
+
+<script>
+
+async function loadHistory() {
+
+    const response =
+        await fetch(
+            "/api/history"
+        );
+
+
+    const data =
+        await response.json();
+
+
+    const container =
+        document.getElementById(
+            "history"
+        );
+
+
+    if (!data.history.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                No simulation events yet.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    data.history
+        .slice()
+        .reverse()
+        .forEach(
+            event => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "history-item";
+
+
+                item.innerHTML = `
+
+                    <span class="history-type">
+                        ${event.type}
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            ${event.message}
+                        </strong>
+
+                        ${
+                            event.path
+                            ?
+                            `<p>
+                                ${event.path.join(" → ")}
+                            </p>`
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    item
+                );
+
+            }
+        );
+
+}
+
+
+loadHistory();
+
+</script>
+
+</body>
+
+</html>
